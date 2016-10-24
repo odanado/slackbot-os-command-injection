@@ -1,0 +1,16 @@
+version: "2"
+services:
+    base:
+        image: odanado/os-command-injection:base
+        build: Docker/base
+
+    bash:
+        image: odanado/os-command-injection:bash
+        build: Docker/base
+
+    python2:
+        image: odanado/os-command-injection:python2
+        build: Docker/python2
+    python3:
+        image: odanado/os-command-injection:python3
+        build: Docker/python3
