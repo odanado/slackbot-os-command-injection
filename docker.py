@@ -38,6 +38,7 @@ class Docker(object):
 
         sys.stderr.write(
             'create docker container: {}\n'.format(' '.join(cmds)))
+        sys.stderr.flush()
 
         self.container_id = subprocess.getoutput(' '.join(cmds))
 
@@ -45,11 +46,13 @@ class Docker(object):
         cmd = "docker cp /tmp/workspace {}:/".format(self.container_id)
         os.system(cmd)
         sys.stderr.write('copy workspace: {}\n'.format(cmd))
+        sys.stderr.flush()
 
     def remove(self):
         cmd = "docker rm {}".format(self.container_id)
         os.system(cmd)
         sys.stderr.write('remove container: {}\n'.format(cmd))
+        sys.stderr.flush()
 
     def _get_time(self):
         cmd = "docker cp {}:/time.txt /tmp/workspace/time.txt".format(
@@ -63,6 +66,7 @@ class Docker(object):
     def start(self):
         cmd = "docker start -i {}".format(self.container_id)
         sys.stderr.write('start container: {}\n'.format(cmd))
+        sys.stderr.flush()
         p = subprocess.Popen(cmd, shell=True,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = p.communicate()

@@ -14,3 +14,9 @@ services:
     python3:
         image: odanado/os-command-injection:python3
         build: Docker/python3
+
+    bot:
+        image: odanado/os-command-injection:bot
+        build: .
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
