@@ -17,4 +17,5 @@ COPY os_command_injection.py plugins/os_command_injection
 
 COPY start.sh .
 
+ENTRYPOINT ["sh", "-c"]
 CMD ["./start.sh"]
