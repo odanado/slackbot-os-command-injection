@@ -22,6 +22,10 @@ class Docker(object):
     def __init__(self, lang):
         self.lang = lang
 
+    def _logging_cmd(self, cmd):
+        sys.stdout.write('run docker command: {}\n'.format(cmd))
+        sys.stdout.flush()
+
     def create(self):
         cmd = Command[self.lang]
         compile_cmd = cmd['compile']
@@ -36,9 +40,7 @@ class Docker(object):
         cmds.append('timeout 3')
         cmds.append('su nobody -s /bin/bash -c "{}"'.format(exec_cmd))
 
-        sys.stdout.write(
-            'create docker container: {}\n'.format(' '.join(cmds)))
-        sys.stdout.flush()
+        self._logging_cmd(' '.join(cmds))
 
         self.container_id = subprocess.getoutput(' '.join(cmds))
         sys.stdout.write('container id is {}\n'.format(self.container_id))
@@ -46,19 +48,18 @@ class Docker(object):
 
     def copy(self):
         cmd = "docker cp /tmp/workspace {}:/".format(self.container_id)
-        sys.stdout.write('copy workspace: {}\n'.format(cmd))
-        sys.stdout.flush()
+        self._logging_cmd(cmd)
         os.system(cmd)
 
     def remove(self):
         cmd = "docker rm {}".format(self.container_id)
+        self._logging_cmd(cmd)
         os.system(cmd)
-        sys.stdout.write('remove container: {}\n'.format(cmd))
-        sys.stdout.flush()
 
     def _get_time(self):
         cmd = "docker cp {}:/time.txt /tmp/workspace/time.txt".format(
             self.container_id)
+        self._logging_cmd(cmd)
         os.system(cmd)
         with open('/tmp/workspace/time.txt') as f:
             time = f.readline()
@@ -67,8 +68,7 @@ class Docker(object):
 
     def start(self):
         cmd = "docker start -i {}".format(self.container_id)
-        sys.stdout.write('start container: {}\n'.format(cmd))
-        sys.stdout.flush()
+        self._logging_cmd(cmd)
         p = subprocess.Popen(cmd, shell=True,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = p.communicate()
