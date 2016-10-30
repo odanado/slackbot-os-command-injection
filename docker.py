@@ -1,6 +1,8 @@
 import os
 import sys
 import subprocess
+import logging
+
 from constant import DockerImage
 from constant import Command
 from constant import StartArgs
@@ -22,9 +24,16 @@ class Docker(object):
     def __init__(self, lang):
         self.lang = lang
 
+        self.logger = logging.getLogger(__name__)
+        fh = logging.FileHandler('docker.log')
+        fh.setLevel(logging.INFO)
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        fh.setFormatter(formatter)
+        self.logger.addHandler(fh)
+
     def _logging_cmd(self, cmd):
-        sys.stdout.write('run docker command: {}\n'.format(cmd))
-        sys.stdout.flush()
+        self.logger.info(cmd)
 
     def create(self):
         cmd = Command[self.lang]
