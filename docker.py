@@ -1,11 +1,10 @@
 import os
-import sys
 import subprocess
-import logging
 
 from constant import DockerImage
 from constant import Command
 from constant import StartArgs
+from utils import init_logger
 
 
 def _conv_args(kwargs):
@@ -24,13 +23,7 @@ class Docker(object):
     def __init__(self, lang):
         self.lang = lang
 
-        self.logger = logging.getLogger(__name__)
-        fh = logging.FileHandler('logs/docker.log')
-        fh.setLevel(logging.INFO)
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        fh.setFormatter(formatter)
-        self.logger.addHandler(fh)
+        self.logger = init_logger(__name__)
 
     def _logging_cmd(self, cmd):
         self.logger.info(cmd)
@@ -55,8 +48,7 @@ class Docker(object):
         self._logging_docker_cmd(' '.join(cmds))
 
         self.container_id = subprocess.getoutput(' '.join(cmds))
-        sys.stdout.write('container id is {}\n'.format(self.container_id))
-        sys.stdout.flush()
+        self._logging_cmd('container id: {}'.format(self.container_id))
 
     def copy(self):
         cmd = "docker cp /tmp/workspace {}:/".format(self.container_id)

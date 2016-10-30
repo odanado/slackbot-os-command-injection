@@ -1,13 +1,13 @@
-import sys
-
 from constant import Command
 from code_runner import code_runner
 from client import slack_client as sc
+from utils import init_logger
 
 crontable = []
 outputs = []
 
 bot_id = sc.api_call('auth.test')['user_id']
+logger = init_logger(__name__)
 
 
 def get_lang(line):
@@ -52,7 +52,6 @@ def process_message(data):
 
         source = '\n'.join(lines[1::])
 
-        sys.stdout.write("{} {} {}\n".format(user, lang, source))
-        sys.stdout.flush()
+        logger.info("{} {} {}".format(user, lang, source))
         stdout, stderr, exec_time = code_runner(lang, source)
         reply(channel, user, format_result(lang, stdout, stderr, exec_time))
