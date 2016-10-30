@@ -25,7 +25,7 @@ class Docker(object):
         self.lang = lang
 
         self.logger = logging.getLogger(__name__)
-        fh = logging.FileHandler('docker.log')
+        fh = logging.FileHandler('logs/docker.log')
         fh.setLevel(logging.INFO)
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
