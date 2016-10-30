@@ -14,6 +14,9 @@ COPY constant.py plugins/os_command_injection
 COPY docker.py plugins/os_command_injection
 COPY code_runner.py plugins/os_command_injection
 COPY os_command_injection.py plugins/os_command_injection
+COPY utils.py plugins/utils.py
+
+RUN mkdir logs
 
 COPY start.sh .
 
