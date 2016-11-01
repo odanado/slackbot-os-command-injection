@@ -14,6 +14,9 @@ services:
     python3:
         image: odanado/os-command-injection:python3
         build: Docker/python3
+    c:
+        image: odanado/os-command-injection:c
+        build: Docker/c
 
     bot:
         image: odanado/os-command-injection:bot
