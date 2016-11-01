@@ -1,4 +1,5 @@
 import os
+from html import unescape
 
 from constant import Command
 from docker import Docker
@@ -14,6 +15,7 @@ def _write_workspace(filename, source):
 
 def code_runner(lang, source):
     docker = Docker(lang)
+    source = unescape(source)
     _write_workspace(Command[lang]['filename'], source)
     docker.create()
     docker.copy()
