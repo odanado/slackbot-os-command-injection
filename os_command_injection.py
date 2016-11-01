@@ -38,6 +38,8 @@ def format_result(lang, stdout, stderr, exec_time):
 
 
 def process_message(data):
+    if 'text' in data:
+        return
 
     text = data['text']
     user = data['user']
