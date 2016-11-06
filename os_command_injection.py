@@ -38,7 +38,7 @@ def format_result(lang, stdout, stderr, exec_time):
 
 
 def process_message(data):
-    if 'text' in data:
+    if 'text' not in data:
         return
 
     text = data['text']
