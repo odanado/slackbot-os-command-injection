@@ -7,6 +7,7 @@ WORKDIR /root
 
 RUN git clone https://github.com/slackhq/python-rtmbot
 WORKDIR python-rtmbot
+RUN git checkout -b 0.3.0 refs/tags/0.3.0
 RUN python3 -m pip install -r requirements.txt
 
 RUN mkdir plugins/os_command_injection
