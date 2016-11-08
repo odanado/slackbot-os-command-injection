@@ -15,10 +15,11 @@ DockerImage = 'odanado/os-command-injection'
 StartArgs = {}
 StartArgs['--net'] = 'none'
 StartArgs['--cpuset-cpus'] = '0'
-StartArgs['--memory'] = '512m'
-StartArgs['--memory-swap'] = '512m'
+StartArgs['--memory'] = '128m'
+StartArgs['--memory-swap'] = '128m'
 StartArgs['-w'] = '/workspace'
-StartArgs['--ulimit'] = ['nproc=10:10', 'fsize=1000000']
+StartArgs['--ulimit'] = ['fsize=1000000']
+StartArgs['--pids-limit'] = '5'
 
 if __name__ == '__main__':
     print(Command)
