@@ -47,7 +47,10 @@ class Docker(object):
 
         self._logging_docker_cmd(' '.join(cmds))
 
-        self.container_id = subprocess.getoutput(' '.join(cmds))
+        p = subprocess.Popen(' '.join(cmds), shell=True,
+                             stdout=subprocess.PIPE)
+        self.container_id, _ = p.communicate()
+        self.container_id = self.container_id.decode('utf8').strip()
         self._logging_cmd('container id: {}'.format(self.container_id))
 
     def copy(self):
