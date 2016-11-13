@@ -19,7 +19,7 @@ StartArgs['--memory'] = '128m'
 StartArgs['--memory-swap'] = '128m'
 StartArgs['-w'] = '/workspace'
 StartArgs['--ulimit'] = ['fsize=1000000']
-StartArgs['--pids-limit'] = '5'
+StartArgs['--pids-limit'] = '10'
 
 if __name__ == '__main__':
     print(Command)
