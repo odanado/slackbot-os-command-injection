@@ -18,6 +18,7 @@ StartArgs['--cpuset-cpus'] = '0'
 StartArgs['--memory'] = '128m'
 StartArgs['--memory-swap'] = '128m'
 StartArgs['-w'] = '/workspace'
+StartArgs['--hostname'] = 'os-command-injection'
 StartArgs['--ulimit'] = ['fsize=1000000']
 StartArgs['--pids-limit'] = '10'
 
