@@ -23,3 +23,5 @@ services:
         build: .
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+        restart: always
+
