@@ -20,7 +20,7 @@ StartArgs['--memory-swap'] = '128m'
 StartArgs['-w'] = '/workspace'
 StartArgs['--hostname'] = 'os-command-injection'
 StartArgs['--ulimit'] = ['fsize=1000000']
-StartArgs['--pids-limit'] = '10'
+StartArgs['--pids-limit'] = '30'
 
 if __name__ == '__main__':
     print(Command)
