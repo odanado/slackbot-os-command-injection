@@ -1,0 +1,4 @@
+docker_tag: python2
+filename: Main.py
+compile_cmd: echo
+run_cmd: python2 Main.py

@@ -81,12 +81,6 @@ class OSCommandInjection(Plugin):
         source = unescape('\n'.join(lines[1::]))
 
         logger.info("{} {} {}".format(user, lang, source))
-        docker_tag = config['docker_tag']
-        filename = config['filename']
-        compile_cmd = config['compile_cmd']
-        run_cmd = config['run_cmd']
-        stdout, stderr, exec_time = \
-            self.code_runner.run(source, docker_tag,
-                                 filename, compile_cmd, run_cmd)
+        stdout, stderr, exec_time = self.code_runner.run(source, **self.config)
         self.reply(channel, user, format_result(
             lang, stdout, stderr, exec_time))

@@ -1,0 +1,6 @@
+docker_tag: python3
+filename: Main.py
+compile_cmd: echo
+run_cmd: python3 Main.py
+aliases:
+    - python

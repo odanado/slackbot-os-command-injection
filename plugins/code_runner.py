@@ -49,7 +49,8 @@ class CodeRunner(object):
 
         return stdout, stderr, running_time
 
-    def run(self, source_code, docker_tag, filename, compile_cmd, run_cmd):
+    def run(self, source_code, docker_tag, filename,
+            compile_cmd, run_cmd, **kwargs):
         client = self.docker_client
         cmd = ('{} && {} > /tmp/dist/stdout.txt '
                '2> /tmp/dist/stderr.txt').format(compile_cmd, run_cmd)
