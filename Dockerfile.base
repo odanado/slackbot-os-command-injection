@@ -11,4 +11,4 @@ RUN mkdir /tmp/dist && \
 
 WORKDIR /tmp/workspace
 
-ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "3", "su", "nobody", "-s", "/bin/bash", "-c"]
+ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "10", "su", "nobody", "-s", "/bin/bash", "-c"]
