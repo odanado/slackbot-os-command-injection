@@ -2,23 +2,25 @@ version: "2"
 services:
     base:
         image: odanado/os-command-injection:base
-        build: Docker/base
+        build:
+            context: .
+            dockerfile: Dockerfile.base
 
     bash:
         image: odanado/os-command-injection:bash
-        build: Docker/bash
+        build: langs/bash
 
     python2:
         image: odanado/os-command-injection:python2
-        build: Docker/python2
+        build: langs/python2
 
     python3:
         image: odanado/os-command-injection:python3
-        build: Docker/python3
+        build: langs/python3
 
     c:
         image: odanado/os-command-injection:c
-        build: Docker/c
+        build: langs/c
 
     bot:
         image: odanado/os-command-injection:bot

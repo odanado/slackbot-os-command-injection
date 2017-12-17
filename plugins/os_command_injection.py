@@ -3,8 +3,8 @@ import yaml
 from html import unescape
 from rtmbot.core import Plugin
 
-from .code_runner import CodeRunner
-from .utils import init_logger
+from plugins.code_runner import CodeRunner
+from plugins.utils import init_logger
 
 
 logger = init_logger(__name__)
@@ -17,14 +17,11 @@ def get_lang(line):
     return texts[1].lower()
 
 
-def get_config(lang, yml_dir='./run_ymls'):
-    for fname in sorted(os.listdir(yml_dir)):
-        if not fname.endswith(('.yml', '.yaml')):
-            continue
-        fname = os.path.join(yml_dir, fname)
+def get_config(lang, langs_dir='./langs'):
+    for dir_name in sorted(os.listdir(langs_dir)):
+        fname = os.path.join(langs_dir, dir_name, 'config.yml')
         config = yaml.load(open(fname))
-        prefix = os.path.splitext(os.path.basename(fname))[0]
-        if prefix == lang:
+        if dir_name == lang:
             return config
 
         if 'aliases' in config and lang in config['aliases']:
