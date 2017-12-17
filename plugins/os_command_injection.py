@@ -81,6 +81,6 @@ class OSCommandInjection(Plugin):
         source = unescape('\n'.join(lines[1::]))
 
         logger.info("{} {} {}".format(user, lang, source))
-        stdout, stderr, exec_time = self.code_runner.run(source, **self.config)
+        stdout, stderr, exec_time = self.code_runner.run(source, **config)
         self.reply(channel, user, format_result(
             lang, stdout, stderr, exec_time))
