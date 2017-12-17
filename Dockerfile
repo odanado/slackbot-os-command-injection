@@ -5,8 +5,9 @@ RUN apk add --no-cache git python3 && \
 
 WORKDIR /root
 
-ADD https://api.github.com/repos/odanado/slackbot-os-command-injection/git/refs/heads/master version.json
-RUN git clone https://github.com/odanado/slackbot-os-command-injection
+# ADD https://api.github.com/repos/odanado/slackbot-os-command-injection/git/refs/heads/master version.json
+# RUN git clone https://github.com/odanado/slackbot-os-command-injection
+ADD . slackbot-os-command-injection
 
 WORKDIR slackbot-os-command-injection
 

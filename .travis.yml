@@ -1,0 +1,28 @@
+language: python
+sudo: required
+
+services:
+    - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.17.1
+
+before_install:
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+    - docker-compose build base
+    - docker-compose build
+
+script:
+    - docker run --name travis-ci -dt -v /var/run/docker.sock:/var/run/docker.sock odanado/os-command-injection:bot sh
+    - docker exec travis-ci sh -c "python3 -m pip install green coverage coveralls flake8"
+    - docker exec travis-ci sh -c "flake8" 
+    - docker exec travis-ci sh -c "green --run-coverage" 
+
+after_success:
+    - docker exec travis-ci sh -c "coveralls" 
+
+notifications:
+    email: false
