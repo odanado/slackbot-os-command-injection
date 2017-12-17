@@ -3,3 +3,12 @@ FROM ubuntu
 RUN apt update -y && \
     apt update -y && \
     apt install -y time
+
+RUN mkdir /tmp/workspace && \
+    chmod 777 /tmp/workspace
+RUN mkdir /tmp/dist && \
+    chmod 777 /tmp/dist
+
+WORKDIR /tmp/workspace
+
+ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "3", "su", "nobody", "-s", "/bin/bash", "-c"]

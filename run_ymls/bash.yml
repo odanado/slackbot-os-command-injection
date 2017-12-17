@@ -1,0 +1,4 @@
+docker_tag: bash
+filename: Main.sh
+compile_cmd: cat Main.sh | tr -d '\r' > a.out
+run_cmd: bash ./a.out

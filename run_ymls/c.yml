@@ -1,0 +1,7 @@
+docker_tag: c
+filename: Main.c
+compile_cmd: gcc -O2 -o ./a.out ./Main.c -lm
+run_cmd: ./a.out
+aliases:
+    - gcc
+    - cc

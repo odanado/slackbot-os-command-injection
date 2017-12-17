@@ -6,14 +6,16 @@ services:
 
     bash:
         image: odanado/os-command-injection:bash
-        build: Docker/base
+        build: Docker/bash
 
     python2:
         image: odanado/os-command-injection:python2
         build: Docker/python2
+
     python3:
         image: odanado/os-command-injection:python3
         build: Docker/python3
+
     c:
         image: odanado/os-command-injection:c
         build: Docker/c
@@ -24,4 +26,3 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         restart: always
-

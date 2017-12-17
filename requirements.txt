@@ -1,0 +1,6 @@
+requests
+pyyaml
+websocket-client
+slackclient
+rtmbot
+docker
