@@ -39,12 +39,12 @@ class CodeRunner(object):
         strem, _ = container.get_archive('/tmp/dist')
         raw_data = strem.read()
         with tarfile.open(fileobj=BytesIO(raw_data), mode='r') as tf:
-            stdout = tf.extractfile('dist/stdout.txt').readline().strip()
-            stderr = tf.extractfile('dist/stderr.txt').readline().strip()
+            stdout = tf.extractfile('dist/stdout.txt').readlines()
+            stderr = tf.extractfile('dist/stderr.txt').readlines()
             running_time = tf.extractfile('dist/time.txt').readline().strip()
 
-        stdout = stdout.decode('utf8')
-        stderr = stderr.decode('utf8')
+        stdout = '\n'.join([x.decode('utf8').strip() for x in stdout]).strip()
+        stderr = '\n'.join([x.decode('utf8').strip() for x in stderr]).strip()
         running_time = running_time.decode('utf8')
 
         return stdout, stderr, running_time
