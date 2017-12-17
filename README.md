@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/odanado/slackbot-os-command-injection.svg?branch=master)](https://travis-ci.org/odanado/slackbot-os-command-injection)
+[![Coverage Status](https://coveralls.io/repos/github/odanado/slackbot-os-command-injection/badge.svg?branch=HEAD)](https://coveralls.io/github/odanado/slackbot-os-command-injection?branch=HEAD)
+
 # slackbot-os-command-injection
 
 コマンドを投げると実行してその結果を返してくれるbotです  
