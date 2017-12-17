@@ -2,7 +2,12 @@
 
 set -eu
 
-echo "DEBUG: False" > rtmbot.conf
-echo "SLACK_TOKEN: $SLACK_TOKEN" >> rtmbot.conf
-echo "LOGFILE: logs/rtmbot.log" >> rtmbot.conf
+cat << EOF > rtmbot.conf
+DEBUG: True
+SLACK_TOKEN: $SLACK_TOKEN
+LOGFILE: logs/rtmbot.log
+ACTIVE_PLUGINS:
+    - plugins.OSCommandInjection
+EOF
+
 rtmbot

@@ -5,21 +5,12 @@ RUN apk add --no-cache git python3 && \
 
 WORKDIR /root
 
-RUN git clone https://github.com/slackhq/python-rtmbot
-WORKDIR python-rtmbot
-RUN git checkout -b 0.3.0 refs/tags/0.3.0
+ADD https://api.github.com/repos/odanado/slackbot-os-command-injection/git/refs/heads/master version.json
+RUN git clone https://github.com/odanado/slackbot-os-command-injection
+
+WORKDIR slackbot-os-command-injection
+
 RUN python3 -m pip install -r requirements.txt
 
-RUN mkdir plugins/os_command_injection
-COPY constant.py plugins/os_command_injection
-COPY docker.py plugins/os_command_injection
-COPY code_runner.py plugins/os_command_injection
-COPY os_command_injection.py plugins/os_command_injection
-COPY utils.py plugins/os_command_injection
-
-RUN mkdir logs
-
-COPY start.sh .
-
-ENTRYPOINT ["sh", "-c"]
+RUN mkdir -p logs
 CMD ["./start.sh"]

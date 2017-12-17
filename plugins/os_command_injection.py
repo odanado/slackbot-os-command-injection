@@ -55,6 +55,8 @@ class OSCommandInjection(Plugin):
         self.bot_id = self.slack_client.api_call('auth.test')['user_id']
         self.code_runner = CodeRunner('odanado/os-command-injection')
 
+        logger.info('start!')
+
     def reply(self, channel, to_user, text):
         self.outputs.append([channel, "<@{}> {}".format(to_user, text)])
 

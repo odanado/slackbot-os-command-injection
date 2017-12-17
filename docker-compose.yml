@@ -25,4 +25,5 @@ services:
         build: .
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/localtime:/etc/localtime:ro
         restart: always
