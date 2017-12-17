@@ -1,0 +1,6 @@
+docker_tag: brainfuck
+filename: Main.bf
+compile_cmd: echo
+run_cmd: bf Main.bf
+aliases:
+    - bf
