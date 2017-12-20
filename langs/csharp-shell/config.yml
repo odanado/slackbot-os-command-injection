@@ -1,0 +1,6 @@
+docker_tag: csharp-shell
+filename: Main.csharp
+compile_cmd: echo
+run_cmd: csharp Main.csharp
+aliases:
+    - cssh

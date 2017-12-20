@@ -35,3 +35,7 @@ services:
     brainfuck:
         image: odanado/os-command-injection:brainfuck
         build: langs/brainfuck
+    
+    charp-shell:
+        image: odanado/os-command-injection:csharp-shell
+        build: langs/csharp-shell

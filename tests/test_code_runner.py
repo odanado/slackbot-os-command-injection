@@ -55,3 +55,17 @@ class TestBrainfuckRunner(unittest.TestCase):
         stdout, _, _ = \
             self.code_runner.run(self.source_code, **self.config)
         self.assertEqual(stdout, 'Hello, world!')
+
+
+class TestCsharpShellRunner(unittest.TestCase):
+    def setUp(self):
+        self.code_runner = CodeRunner('odanado/os-command-injection')
+        self.source_code = """
+Console.WriteLine("Hello, world!");
+        """
+        self.config = yaml.load(open('./langs/csharp-shell/config.yml'))
+
+    def test_run(self):
+        stdout, _, _ = \
+            self.code_runner.run(self.source_code, **self.config)
+        self.assertEqual(stdout, 'Hello, world!')
