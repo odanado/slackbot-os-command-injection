@@ -10,5 +10,6 @@ RUN mkdir /tmp/dist && \
     chmod 777 /tmp/dist
 
 WORKDIR /tmp/workspace
+ENV TZ Asia/Tokyo
 
 ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "10", "su", "nobody", "-s", "/bin/bash", "-c"]
