@@ -91,13 +91,12 @@ def make_test(test_file, config):
         self.assertEqual(stdout, stdout_file.read_text().strip())
 
         if stderr_file.exists():
-            self.assertEqual(stderr, stderr.read_text().strip())
+            self.assertEqual(stderr, stderr_file.read_text().strip())
 
     return test
 
 
 def register_tests(path):
-    path = Path(path)
     tests_path = path / 'tests'
     config = yaml.load((path / 'config.yml').read_text())
     suffix = Path(config['filename']).suffix
@@ -111,4 +110,5 @@ def register_tests(path):
     return tests
 
 
-register_tests('./langs/bash')
+for lang in Path('./langs').glob('*'):
+    register_tests(lang)
