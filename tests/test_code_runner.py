@@ -13,6 +13,7 @@ class TestCodeRunner(unittest.TestCase):
 
 
 def make_test(test_file, config):
+
     def test(self):
         stdout_file = test_file.with_suffix('.stdout')
         stderr_file = test_file.with_suffix('.stderr')
@@ -38,11 +39,8 @@ def register_tests(path):
 
     test_files = tests_path.glob('*' + suffix)
 
-    tests = []
     for test_file in test_files:
         setattr(TestCodeRunner, test_file.name, make_test(test_file, config))
-
-    return tests
 
 
 for lang in Path('./langs').glob('*'):
