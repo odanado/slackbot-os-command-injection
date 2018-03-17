@@ -1,6 +1,6 @@
 requests
 pyyaml
-websocket-client
-slackclient
-rtmbot
-docker
+websocket-client==0.44.0
+slackclient==1.1.0
+rtmbot==0.4.0
+docker==3.1.1
