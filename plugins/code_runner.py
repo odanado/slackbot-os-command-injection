@@ -36,8 +36,8 @@ class CodeRunner(object):
             container.put_archive('/tmp/workspace', archive)
 
     def _get_results(self, container):
-        strem, _ = container.get_archive('/tmp/dist')
-        raw_data = strem.read()
+        stream, _ = container.get_archive('/tmp/dist')
+        raw_data = next(stream)
         with tarfile.open(fileobj=BytesIO(raw_data), mode='r') as tf:
             stdout = tf.extractfile('dist/stdout.txt').readlines()
             stderr = tf.extractfile('dist/stderr.txt').readlines()
