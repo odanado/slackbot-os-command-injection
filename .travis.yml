@@ -5,7 +5,7 @@ services:
     - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.17.1
+    - DOCKER_COMPOSE_VERSION=1.17.1
 
 before_install:
     - sudo rm /usr/local/bin/docker-compose
@@ -18,11 +18,11 @@ before_install:
 script:
     - docker run --name travis-ci -dt -v /var/run/docker.sock:/var/run/docker.sock odanado/os-command-injection:bot sh
     - docker exec travis-ci sh -c "python3 -m pip install green coverage coveralls flake8"
-    - docker exec travis-ci sh -c "flake8" 
-    - docker exec travis-ci sh -c "green --run-coverage" 
+    - docker exec travis-ci sh -c "flake8"
+    - docker exec travis-ci sh -c "green --run-coverage tests"
 
 after_success:
-    - docker exec travis-ci sh -c "coveralls" 
+    - docker exec travis-ci sh -c "coveralls"
 
 notifications:
     email: false
