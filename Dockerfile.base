@@ -2,7 +2,9 @@ FROM ubuntu
 
 RUN apt update -y && \
     apt update -y && \
-    apt install -y time
+    apt install -y time locales
+
+RUN locale-gen ja_JP.UTF-8
 
 RUN mkdir /tmp/workspace && \
     chmod 777 /tmp/workspace
