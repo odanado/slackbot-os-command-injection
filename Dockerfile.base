@@ -1,10 +1,17 @@
 FROM ubuntu
 
 ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ Asia/Tokyo
 
 RUN apt update -y && \
     apt update -y && \
-    apt install -y time
+    apt install -y time tzdata
+
+RUN echo "${TZ}" > /etc/timezone && \
+    rm /etc/localtime && \
+    ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 RUN mkdir /tmp/workspace && \
     chmod 777 /tmp/workspace
@@ -12,6 +19,5 @@ RUN mkdir /tmp/dist && \
     chmod 777 /tmp/dist
 
 WORKDIR /tmp/workspace
-ENV TZ Asia/Tokyo
 
 ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "10", "su", "nobody", "-s", "/bin/bash", "-c"]
