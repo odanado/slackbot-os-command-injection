@@ -42,4 +42,4 @@ services:
  
     scala:
         image: odanado/os-command-injection:scala
-        build: lang/scala
+        build: langs/scala
