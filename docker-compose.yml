@@ -39,3 +39,7 @@ services:
     charp-shell:
         image: odanado/os-command-injection:csharp-shell
         build: langs/csharp-shell
+ 
+    scala:
+        image: odanado/os-command-injection:scala
+        build: lang/scala

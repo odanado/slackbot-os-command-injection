@@ -1,0 +1,6 @@
+docker_tag: scala
+filename: main.scala
+compile_cmd: echo
+run_cmd: scala main.scala
+aliases:
+    - scala
