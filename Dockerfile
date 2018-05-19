@@ -14,5 +14,4 @@ WORKDIR slackbot-os-command-injection
 RUN python3 -m pip install -r requirements.txt
 
 RUN mkdir -p logs
-ENV DEBIAN_FRONTEND=noninteractive
 CMD ["./start.sh"]
