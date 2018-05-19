@@ -40,7 +40,7 @@ services:
         image: odanado/os-command-injection:csharp-shell
         build: langs/csharp-shell
 
-    python3:
+    haskell:
         image: odanado/os-command-injection:haskell
         build: langs/haskell
 
