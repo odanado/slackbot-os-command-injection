@@ -43,3 +43,7 @@ services:
     scala:
         image: odanado/os-command-injection:scala
         build: langs/scala
+
+    haskell:
+        image: odanado/os-command-injection:haskell
+        build: langs/haskell
