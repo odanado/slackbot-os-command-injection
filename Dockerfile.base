@@ -13,11 +13,10 @@ RUN echo "${TZ}" > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
-RUN mkdir /tmp/workspace && \
-    chmod 777 /tmp/workspace
-RUN mkdir /tmp/dist && \
-    chmod 777 /tmp/dist
+ENV BOT_USER bot
+RUN useradd ${BOT_USER}
+USER ${BOT_USER}
+RUN mkdir /tmp/workspace
+RUN mkdir /tmp/dist
 
 WORKDIR /tmp/workspace
-
-ENTRYPOINT ["/usr/bin/time", "-q", "-f %e", "-o", "/tmp/dist/time.txt", "timeout", "10", "su", "nobody", "-s", "/bin/bash", "-c"]

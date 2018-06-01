@@ -17,7 +17,7 @@ class CodeRunner(object):
             'memswap_limit': '128m',
             'hostname': 'os-command-injection',
             'pids_limit': 30,
-            'ulimits': [{'name': 'fsize', 'soft': 1000000, 'hard': 1000000}]
+            'ulimits': [{'name': 'fsize', 'soft': int(1e7), 'hard': int(1e7)}]
         }
 
     def _put_source_code(self, container, filename, source_code):
@@ -49,15 +49,29 @@ class CodeRunner(object):
 
         return stdout, stderr, running_time
 
+    def _create_command(self, base_cmd, timeout, file_prefix=''):
+        cmd = ('/usr/bin/time -q -f %e '
+               '-o /tmp/dist/{prefix}time.txt '
+               'timeout {timeout} '
+               '{base_cmd} '
+               '> /tmp/dist/{prefix}stdout.txt '
+               '2> /tmp/dist/{prefix}stderr.txt')
+        return cmd.format(base_cmd=base_cmd,
+                          timeout=timeout, prefix=file_prefix)
+
     def run(self, source_code, docker_tag, filename,
             compile_cmd, run_cmd, **kwargs):
         client = self.docker_client
-        cmd = ('{} && {} > /tmp/dist/stdout.txt '
-               '2> /tmp/dist/stderr.txt').format(compile_cmd, run_cmd)
+
+        compile_cmd = 'bash -c \\"{}\\"'.format(compile_cmd)
+        compile_cmd = self._create_command(compile_cmd, 30, 'compile_')
+        run_cmd = self._create_command(run_cmd, 15)
+
+        cmd = '{} && {}'.format(compile_cmd, run_cmd)
 
         docker_image = '{}:{}'.format(self.docker_image, docker_tag)
         container = client.containers.create(
-            docker_image, '"{}"'.format(cmd), **self.create_kwargs)
+            docker_image, 'bash -c "{}"'.format(cmd), **self.create_kwargs)
 
         self._put_source_code(container, filename, source_code)
 

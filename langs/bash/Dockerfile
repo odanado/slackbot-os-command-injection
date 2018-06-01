@@ -1,5 +1,7 @@
 FROM odanado/os-command-injection:base
 
+USER root
+
 RUN apt update && apt upgrade -y
 RUN apt install -y vim-common wget
 
@@ -15,3 +17,5 @@ RUN apt-add-repository ppa:brightbox/ruby-ng && \
     apt install -y ruby2.5
 
 RUN gem install cureutils
+
+USER ${BOT_USER}
