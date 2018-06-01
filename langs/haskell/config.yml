@@ -1,6 +1,7 @@
 docker_tag: haskell
 filename: main.hs
-compile_cmd: echo
-run_cmd: runghc main.hs
+compile_cmd: ghc -O2 main.hs
+run_cmd: ./main
 aliases:
     - runghc
+    - hs
