@@ -20,7 +20,8 @@ def make_test(test_file, config):
 
         source_code = test_file.read_text()
 
-        stdout, stderr, _ = self.code_runner.run(source_code, **config)
+        results = self.code_runner.run(source_code, **config)
+        stdout, stderr, _ = results['run']
 
         self.assertTrue(stdout_file.exists())
 

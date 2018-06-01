@@ -35,19 +35,32 @@ class CodeRunner(object):
         with pw_tarstream as archive:
             container.put_archive('/tmp/workspace', archive)
 
+    def _readlines_tarfile(self, tf, fname):
+        try:
+            lines = tf.extractfile(fname).readlines()
+            lines = '\n'.join([x.decode('utf8').strip() for x in lines])
+            return lines.strip()
+        except KeyError:
+            return ''
+
     def _get_results(self, container):
         stream, _ = container.get_archive('/tmp/dist')
         raw_data = next(stream)
         with tarfile.open(fileobj=BytesIO(raw_data), mode='r') as tf:
-            stdout = tf.extractfile('dist/stdout.txt').readlines()
-            stderr = tf.extractfile('dist/stderr.txt').readlines()
-            running_time = tf.extractfile('dist/time.txt').readline().strip()
+            stdout = self._readlines_tarfile(tf, 'dist/stdout.txt')
+            stderr = self._readlines_tarfile(tf, 'dist/stderr.txt')
+            running_time = self._readlines_tarfile(tf, 'dist/time.txt')
 
-        stdout = '\n'.join([x.decode('utf8').strip() for x in stdout]).strip()
-        stderr = '\n'.join([x.decode('utf8').strip() for x in stderr]).strip()
-        running_time = running_time.decode('utf8')
+            compile_stdout = self._readlines_tarfile(
+                tf, 'dist/compile_stdout.txt')
+            compile_stderr = self._readlines_tarfile(
+                tf, 'dist/compile_stderr.txt')
+            compile_time = self._readlines_tarfile(tf, 'dist/compile_time.txt')
 
-        return stdout, stderr, running_time
+        return {
+            'run': (stdout, stderr, running_time),
+            'compile': (compile_stdout, compile_stderr, compile_time)
+        }
 
     def _create_command(self, base_cmd, timeout, file_prefix=''):
         cmd = ('/usr/bin/time -q -f %e '
