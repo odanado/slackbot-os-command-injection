@@ -30,14 +30,18 @@ def get_config(lang, langs_dir='./langs'):
     return None
 
 
-def format_result(lang, stdout, stderr, exec_time):
-    stdout = stdout
-    stderr = stderr
+def format_results(lang, runner_results):
+    stdout, stderr, exec_time = runner_results['run']
+    compile_stdout, compile_stderr, compile_time = runner_results['compile']
 
     results = ['']
     results.append('言語: {}'.format(lang))
-    results.append('実行時間: {}'.format(exec_time))
+    results.append('コンパイル時間: {}'.format(compile_time))
+    if exec_time:
+        results.append('実行時間: {}'.format(exec_time))
 
+    if compile_stderr:
+        results.append('コンパイルエラー:\n {}'.format(compile_stderr))
     if stdout:
         results.append('標準出力:\n {}'.format(stdout))
     if stderr:
@@ -78,6 +82,5 @@ class OSCommandInjection(Plugin):
         source = unescape('\n'.join(lines[1::]))
 
         logger.info("{} {} {}".format(user, lang, source))
-        stdout, stderr, exec_time = self.code_runner.run(source, **config)
-        self.reply(channel, user, format_result(
-            lang, stdout, stderr, exec_time))
+        results = self.code_runner.run(source, **config)
+        self.reply(channel, user, format_results(lang, results))
