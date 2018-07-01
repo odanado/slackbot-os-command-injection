@@ -10,7 +10,7 @@ RUN cd /tmp && \
 
 RUN apt install -y bc dc zsh w3m curl git nkf software-properties-common
 
-RUN apt-add-repository ppa:brightbox/ruby-ng && \
+RUN apt-add-repository ppa:brightbox/ruby-ng -y && \
     apt update && \
     apt install -y ruby2.5
 
